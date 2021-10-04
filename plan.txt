@@ -1,0 +1,4 @@
+Create database of all objects (as they are rendered they are stored i.e starts empty), program then gets the ones within render
+sorts by position and gets within a rance of camera position? then Program renders them in GUI etc etc.Create database of all objects (as they are rendered they are stored i.e starts empty), program then gets the ones within render
+sorts by position and gets within a rance of camera position? then Program renders them in GUI etc etc.
+
