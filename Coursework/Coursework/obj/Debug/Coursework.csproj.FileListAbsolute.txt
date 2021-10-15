@@ -1,0 +1,4 @@
+C:\Users\josh1\Documents\Computing-Coursework\Coursework(git)\Coursework\Coursework\obj\Debug\Coursework.csprojAssemblyReference.cache
+C:\Users\josh1\Documents\Computing-Coursework\Coursework(git)\Coursework\Coursework\obj\Debug\Coursework.Main.resources
+C:\Users\josh1\Documents\Computing-Coursework\Coursework(git)\Coursework\Coursework\obj\Debug\Coursework.csproj.GenerateResource.cache
+C:\Users\josh1\Documents\Computing-Coursework\Coursework(git)\Coursework\Coursework\obj\Debug\Coursework.csproj.CoreCompileInputs.cache

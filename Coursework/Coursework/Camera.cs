@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Coursework
 {
-    class Program
+    class Camera
     {
-        static void Main(string[] args)
-        {
-        }
+
     }
 }
