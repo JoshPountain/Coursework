@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 namespace Graphics
 {
+
     public partial class Form1 : Form
     {
         public Form1()
@@ -24,13 +25,23 @@ namespace Graphics
 
         private void Form1_Shown(object sender, EventArgs e)
         {
+            //trig right angle from camera to centre will give furthest side point cam can see
             int[,,] space = new int[100, 100, 100];
-            int[] objects;
-            var test = new Objects[10];
-            test[0] = new Objects();
+            int[,,] render = space;
+            int[] pos = new int[2] { 50, 50 };
+            int i = 0;
+            var test = new Objects[100];
+            test[0] = new Objects(10, pos, 2);
+            //go through all objects
+            foreach (var t in test)
+            {
+                i++;
+                Console.WriteLine(i.ToString());
+            }
+
             Objects o = test[0];
             o.tryMe();
-            //test[0].tryMe();
+            double h = o.radius;
         }
     }
 }
