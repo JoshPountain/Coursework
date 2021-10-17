@@ -34,18 +34,22 @@
             // 
             // pbWindow
             // 
-            this.pbWindow.Location = new System.Drawing.Point(203, 119);
+            this.pbWindow.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.pbWindow.Location = new System.Drawing.Point(204, 77);
+            this.pbWindow.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pbWindow.Name = "pbWindow";
-            this.pbWindow.Size = new System.Drawing.Size(394, 213);
+            this.pbWindow.Size = new System.Drawing.Size(200, 200);
             this.pbWindow.TabIndex = 1;
             this.pbWindow.TabStop = false;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.ClientSize = new System.Drawing.Size(600, 366);
             this.Controls.Add(this.pbWindow);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
