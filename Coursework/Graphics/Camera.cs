@@ -65,6 +65,26 @@ namespace Graphics
 
         public void setRotation(double Atheta, double Av)
         {
+            
+            while (Math.Abs(Av) > 90)
+            {
+                if (Av < 0)
+                {
+                    Atheta += 180;
+                    Av = -90 - (Av + 90);
+                }
+                else
+                {
+                    Atheta += 180;
+                    Av = 90 - (Av - 90);
+                }
+            }
+            while (Atheta >= 360)
+            {
+                Atheta -= 360;
+            }
+
+            Console.WriteLine("ANGLE: " + Atheta.ToString());
             //trig angles to find new facing point
             rotation[0] = 0;
             rotation[1] = 0;
@@ -103,33 +123,70 @@ namespace Graphics
                     modifier += 90;
                 }
             }
-
-            z = (Av / Math.Abs(Av)) * Math.Sin(Math.Abs(Av) * CONVERT);
-            proportion = Math.Cos(Av * CONVERT);
-
+            if (Av != 0)
+            {
+                z = (Av / Math.Abs(Av)) * Math.Sin(Math.Abs(Av) * CONVERT);
+            }
+            else
+            {
+                z = Math.Sin(Math.Abs(Av) * CONVERT);
+            }
+            
+            //Console.WriteLine(Av.ToString());
+            //Console.WriteLine("Sign: " + (Math.Abs(Av) / Av).ToString());
+            if (Av == 90)
+            {
+                //Vertical rotation
+                proportion = 0;
+            }
+            else
+            {
+                proportion = Math.Cos(Av * CONVERT);
+            }
+            
+            Console.WriteLine(proportion);
+            Console.WriteLine("Proportion: " + proportion.ToString());
             sin = (Math.Sin((modifier - Atheta) * CONVERT)) * proportion;
             cos = (Math.Cos((modifier - Atheta) * CONVERT)) * proportion;
-
+            //cos = Math.Cos((modifier - 90) * CONVERT) * proportion;
+            
+            cos = Math.Sin((Atheta - (modifier - 90)) * CONVERT) * proportion;
+            //cos = Math.Sin(90 * (Math.PI / 180));
+            //Console.WriteLine("Cos: " + cos.ToString());
+            /*if (cos == 0)
+            {
+                Console.WriteLine("Huh");
+            }*/
             switch (modifier)
             {
                 case 90:
                     y += sin;
+                    //x += cos;
+                    Console.WriteLine("Check: " + (Math.Sin(90 * CONVERT)).ToString());
+                    Console.WriteLine("Atheta: " + Atheta.ToString());
+                    //x += Math.Sin(Atheta * CONVERT);
                     x += cos;
+                    Console.WriteLine(modifier.ToString());
                     break;
                 case 180:
                     x += sin;
                     y -= cos;
+                    Console.WriteLine(modifier.ToString());
                     break;
                 case 270:
                     y -= sin;
                     x -= cos;
+                    Console.WriteLine(modifier.ToString());
                     break;
                 case 360:
                     x -= sin;
                     y += cos;
+                    Console.WriteLine(modifier.ToString());
                     break;
             }
-
+            Console.WriteLine("x: " + x.ToString());
+            Console.WriteLine("y: " + y.ToString());
+            Console.WriteLine("z: " + z.ToString());
             facing[0] += x;
             facing[1] += y;
             facing[2] += z;

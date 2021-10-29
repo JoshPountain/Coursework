@@ -34,10 +34,15 @@ namespace Graphics
             //Have point the camera is looking at!!!
 
             Camera c = new Camera(100);
-            c.checkDebug();
+            //c.checkDebug();
             //c.rotate(1, 1);
-            c.setRotation(180, 0);
-            c.checkDebug();
+            c.setRotation(180, 91);
+            c.setRotation(0, 89);
+            c.setRotation(90, 1);
+            c.setRotation(180, 1);
+            c.setRotation(270, 1);
+            c.setRotation(360, 91);
+            //c.checkDebug();
 
         }
     }
