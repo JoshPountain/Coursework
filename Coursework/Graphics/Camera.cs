@@ -84,6 +84,7 @@ namespace Graphics
                 Atheta -= 360;
             }
 
+
             Console.WriteLine("ANGLE: " + Atheta.ToString());
             //trig angles to find new facing point
             rotation[0] = 0;
@@ -190,9 +191,16 @@ namespace Graphics
             facing[0] += x;
             facing[1] += y;
             facing[2] += z;
+            //rotation[0] = Atheta;
+            //rotation[1] = Av;
         }
 
-        public void rotate(double Atheta, double Av)
+        public void rotate(double rh, double rv)
+        {
+            setRotation(rh + rotation[0], rv + rotation[1]);
+        }
+
+        public void rotate(double Atheta, double Av, double noCol)
         {
             //trig angles to find new facing point
             rotation[0] += Atheta;
