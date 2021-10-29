@@ -32,8 +32,12 @@ namespace Graphics
             //trig right angle from camera to centre will give furthest side point cam can see
             //need formula for working out which way the camera is looking.
             //Have point the camera is looking at!!!
-            
-            
+
+            Camera c = new Camera(100);
+            c.checkDebug();
+            //c.rotate(1, 1);
+            c.setRotation(180, 0);
+            c.checkDebug();
 
         }
     }

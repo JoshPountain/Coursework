@@ -14,9 +14,8 @@ namespace Graphics
             fov[0] = 10;
 
 
-            location[0] = renderDist / 2;
-
-            location[0] = renderDist / 2;
+            //location[0] = renderDist / 2;
+            location[0] = 0;
 
             location[1] = location[0];
             location[2] = location[0];
@@ -63,6 +62,78 @@ namespace Graphics
             }
         }
         
+
+        public void setRotation(double Atheta, double Av)
+        {
+            //trig angles to find new facing point
+            rotation[0] = 0;
+            rotation[1] = 0;
+            facing[0] = 0;
+            facing[1] = 0;
+            facing[2] = 0;
+
+            rotation[0] += Atheta;
+            rotation[1] += Av;
+            //Cam position modifiers (Asif top down)
+            double x = 0;
+            double y = 0;
+            double z = 0;
+            //t is for x,y rotation, a is for the 'elevation'
+            double t = rotation[0];
+            double a = rotation[1];
+            double modifier = 90;
+            //Trig functions in c# use radeons, the convert value will make the output be in degrees
+            double CONVERT = Math.PI / 180;
+            double sin;
+            double cos;
+            double proportion;
+            if (t >= 360)
+            {
+                t -= 360;
+            }
+
+            while (true)
+            {
+                if (t <= modifier)
+                {
+                    break;
+                }
+                else
+                {
+                    modifier += 90;
+                }
+            }
+
+            z = (Av / Math.Abs(Av)) * Math.Sin(Math.Abs(Av) * CONVERT);
+            proportion = Math.Cos(Av * CONVERT);
+
+            sin = (Math.Sin((modifier - Atheta) * CONVERT)) * proportion;
+            cos = (Math.Cos((modifier - Atheta) * CONVERT)) * proportion;
+
+            switch (modifier)
+            {
+                case 90:
+                    y += sin;
+                    x += cos;
+                    break;
+                case 180:
+                    x += sin;
+                    y -= cos;
+                    break;
+                case 270:
+                    y -= sin;
+                    x -= cos;
+                    break;
+                case 360:
+                    x -= sin;
+                    y += cos;
+                    break;
+            }
+
+            facing[0] += x;
+            facing[1] += y;
+            facing[2] += z;
+        }
 
         public void rotate(double Atheta, double Av)
         {
