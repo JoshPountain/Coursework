@@ -39,7 +39,11 @@ namespace Graphics
             c.setRotation(30, 45);
             c.setRotation(45, 30);
             c.setRotation(45, -30);*/
+            //test at points where there should be shared coordinates
+            c.setRotation(0, 0);
             c.getPoint(30);
+            double[] point = new double[3] { 0, 0, 0 };
+            c.ValidatePoint(point);
             //c.checkDebug();
             //c.checkDebug();
             //c.checkDebug();

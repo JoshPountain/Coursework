@@ -27,15 +27,152 @@ namespace Graphics
         public int[] location { get; set; } = new int[3] { 1, 0, 0 };
         public double[] facing { get; set;} = new double[3] { 0, 0, 0 };
         public double[] rotation { get; set; } = new double[2];
+        //Height, width (fov)
         public double[] fov { get; set; } = new double[2] { 0, 0 };
-
         
-
 
         //facing[2] = location[2] + 1;
         
         
+        public bool ValidatePoint(double[] point)
+        {
+            //Sees if a point is in view of the camera
+            bool inView = false;
+            //gets the frame the camera is 'looking at'
+            double[,] frame = getPoint(30);
+            double cx = location[0];
+            double cy = location[1];
+            double cz = location[2];
+            //plot lines from edge of screen, check if point is 'in bounds'
+            //frane[4,3]
+            //0 : top, 1 : bottom, 2: left, 3 : right
 
+            foreach(int i in Enumerable.Range(0, 4))
+            {
+                double t;
+                
+                
+
+                
+
+                //Use parametrice to get equation for 3d line
+                //x
+                double ex = frame[i, 0];
+                
+                //y
+                double ey = frame[i, 1];
+                
+                //z
+                double ez = frame[i, 2];
+
+                //find dist from cam pos to point
+                //Pythagoras to find distances
+                double xDist = point[0] - cx;
+                double yDist = point[1] - cy;
+                double zDist = point[1] - cz;
+                double Dist = Math.Sqrt(Math.Pow(xDist, 2) + Math.Pow(yDist, 2) + Math.Pow(zDist, 2));
+                switch (Dist)
+                {
+                    case 0:
+                        //no div by 0 error
+                        t = 0.1;
+                        break;
+                    default:
+                        t = Math.Abs(Dist);
+                        break;
+                }
+
+                //error if (yDist / t) == 0
+                double Atheta = Math.Asin(yDist / t);
+                switch (Atheta)
+                {
+                    case 0:
+                        //no div by 0 error
+                        Atheta = 0;
+                        break;
+                    default:
+                        Atheta = Math.Abs(Atheta);
+
+                        break;
+                }
+                Atheta *= 180 / Math.PI;
+                Atheta = 90 - Atheta;
+
+                double Av = Math.Atan(zDist / t);
+                switch (Av)
+                {
+                    case 0:
+                        //no div by 0 error
+                        Av = 0;
+                        break;
+                    default:
+                        Av = Math.Abs(Av);
+
+                        break;
+                }
+                Av *= 180 / Math.PI;
+
+                if (Av <= fov[0] && Atheta <= fov[1])
+                {
+                    inView = true;
+                }
+                else
+                {
+                    inView = false;
+                    break;
+                }
+
+                //double px = cx - ex;
+                //double x = cx - ex * t;
+                //double y = cy - ey * t;
+                //double z = cz - ez * t;
+
+                switch (i)
+                {
+                    case 0:
+                        //top
+                        //needs to be between top and bottom 
+                        
+                        break;
+                    case 1:
+                        //bottom
+
+                        break;
+                    case 2:
+                        //left
+
+                        break;
+                    case 3:
+                        //right
+
+                        break;
+                }
+
+                
+
+                //rearrange x and z
+                //x : t = (cx-x)/ex
+                //z : t = (cz-z)/ez
+
+                // x into y
+                //y = cy - (ey)*((cx-x)/ex)
+                //0 = cy - (ey)*((cx-x)/ex) - y
+
+                // z into y
+                //y = cy - (ey)*((cz-z)/ez)
+                //0 = cy - (ey)*((cz-z)/ez) - y
+
+                //combine
+                //cy - (ey)*((cz-z)/ez) - y = cy - (ey)*((cx-x)/ex) - y
+                //(ey)*((cz-z)/ez)  =(ey)*((cx-x)/ex) 
+                //((cz-z)/ez)  =((cx-x)/ex) 
+
+                
+
+            }
+
+            return inView;
+        }
 
         public void checkDebug()
         {
