@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
+using System.IO;
+using System.ComponentModel;
+using System.Data;
+using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Graphics
 {
@@ -10,19 +16,9 @@ namespace Graphics
     {
         public Camera(int renderDist)
         {
-            fov[0] = 10;
-            fov[0] = 10;
-
-
-            //location[0] = renderDist / 2;
-            //location[0] = 0;
-
-            //location[1] = location[0];
-            //location[2] = location[0];
-            //facing[0] = location[0];
-            //facing[1] = location[1];
-
-            //facing[2] = location[2] + 1;
+            setRotation(0, 0);
+            getPoint(30);
+            checkDebug();
         }
 
         public double[] location { get; set; } = new double[3] { 1, 0, 0 };
@@ -31,12 +27,8 @@ namespace Graphics
         double[] mleft = new double[3], mright = new double[3], mback = new double[3], mforward = new double[3];
 
         //Height, width (fov)
-        public double[] fov { get; set; } = new double[2] { 0, 0 };
-
-        public void NewCamRotation()
-        {
-
-        }
+        public double[] fov { get; set; } = new double[2] { 30, 30 };
+        
 
         public void setRotation(double Atheta, double Av)
         {
@@ -237,14 +229,61 @@ namespace Graphics
 
         }
 
-        public void DrawObject()
+        public int[] DrawObject(double[] pos, int id, int[] screen)
         {
+            //For testing
+            pos = new double[3] { 50, 50, 50 };
+            
+            double dist = getDist(pos);
+            //Would use id to get radius from database, but not set up
+            double[] objAngles = ReturnAngle(pos);
+            int x, y;
+            int[] coordinates = new int[2];
+            int[] angles = new int[2];
+            int i = 0;
+            foreach(double d in objAngles)
+            {
+                angles[i] = Convert.ToInt32(objAngles);
+                i++;
+            }
 
+            int[] test = new int[2] { 10, 10 };
+            angles = test;
+
+            coordinates[0] = screen[0]/2 + Convert.ToInt32(angles[0] / 30);
+            coordinates[1] = screen[1]/2 - Convert.ToInt32(angles[1] / 60);
+
+            return coordinates;
+            
         }
-        
+
+        public double[] getPerspective(double[] pos)
+        {
+            double[] point = new double[3];
+            /*double[] rotationStore = rotation;
+            setRotation(pos[0], pos[1]);
+            point = facing;
+            setRotation(rotationStore[0], rotationStore[1]);*/
+            double[] dif = new double[3];
+            foreach(int i in Enumerable.Range(0, 3))
+            {
+                dif[i] = Math.Abs(location[i] - pos[0]);
+            }
+
+
+
+            return point;
+        }
+
+        public double getDist(double[] position)
+        {
+            double dist = 0;
+            dist = Math.Sqrt((Math.Pow(position[0] - location[0], 2) + (Math.Pow(position[1] - location[1], 2)) + (Math.Pow(position[2] - location[2], 2))));
+            return dist;
+        }
+
         public double[] ReturnAngle(double[] point)
         {
-            bool inView = false;
             //gets the frame the camera is 'looking at'
             double[,] frame = getPoint(30);
             double cx = location[0];

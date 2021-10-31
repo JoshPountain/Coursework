@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,8 @@ namespace Graphics
 
     public partial class Form1 : Form
     {
+        
+        Camera c = new Camera(100);
         public Form1()
         {
             InitializeComponent();
@@ -25,24 +28,41 @@ namespace Graphics
 
         private void Form1_Shown(object sender, EventArgs e)
         {
+            System.Drawing.Graphics graphics;
+            graphics = pbWindow.CreateGraphics();
+            
             setup();
+            double[] point = new double[3] { 1, 2, 0 };
+            int[] screen = new int[2];
+            int[] centre = c.DrawObject(point, 0, screen);
+            
         }
+
+        private void draw()
+        {
+
+        }
+
         private void setup()
         {
             //trig right angle from camera to centre will give furthest side point cam can see
             //need formula for working out which way the camera is looking.
             //Have point the camera is looking at!!!
 
-            Camera c = new Camera(100);
-
+            
+            
+            
+            double[] yes = c.ReturnAngle(point);
+            Console.WriteLine("DOING NOW");
+            c.checkDebug();
             /*c.setRotation(-30, 45);
             c.setRotation(30, 45);
             c.setRotation(45, 30);
             c.setRotation(45, -30);*/
             //test at points where there should be shared coordinates
-            c.setRotation(0, 0);
-            c.getPoint(30);
-            double[] point = new double[3] { 0, 0, 0 };
+            //c.setRotation(0, 0);
+            //c.getPoint(30);
+            //double[] point = new double[3] { 0, 0, 0 };
             //c.ValidatePoint(point);
             //c.checkDebug();
             //c.checkDebug();
