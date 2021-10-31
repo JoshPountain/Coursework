@@ -43,7 +43,7 @@ namespace Graphics
             c.setRotation(0, 0);
             c.getPoint(30);
             double[] point = new double[3] { 0, 0, 0 };
-            c.ValidatePoint(point);
+            //c.ValidatePoint(point);
             //c.checkDebug();
             //c.checkDebug();
             //c.checkDebug();

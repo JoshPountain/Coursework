@@ -18,3 +18,5 @@ C:\Users\Josh\Desktop\Coursework(git)\Coursework\Graphics\obj\Debug\Graphics.csp
 C:\Users\Josh\Desktop\Coursework(git)\Coursework\Graphics\obj\Debug\Graphics.csproj.CoreCompileInputs.cache
 C:\Users\Josh\Desktop\Coursework(git)\Coursework\Graphics\obj\Debug\Graphics.exe
 C:\Users\Josh\Desktop\Coursework(git)\Coursework\Graphics\obj\Debug\Graphics.pdb
+C:\Users\Josh\Desktop\Coursework(git)\Coursework\Graphics\bin\Debug\Objects.mdf
+C:\Users\Josh\Desktop\Coursework(git)\Coursework\Graphics\bin\Debug\Objects_log.ldf
