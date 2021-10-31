@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Graphics
+namespace Coursework
 {
     class Objects
     {
-
         public Objects(double imass, int[] ilocation, double iradius)
         {
             mass = imass;

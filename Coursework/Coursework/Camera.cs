@@ -10,7 +10,7 @@ using System.Data;
 using System.Windows.Forms;
 using System.Diagnostics;
 
-namespace Graphics
+namespace Coursework
 {
     class Camera
     {

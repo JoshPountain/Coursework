@@ -9,12 +9,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Graphics
+namespace Coursework
 {
 
     public partial class Form1 : Form
     {
-        
+        System.Drawing.Graphics graph;
         Camera c = new Camera(100);
         public Form1()
         {
@@ -30,6 +30,8 @@ namespace Graphics
         {
             System.Drawing.Graphics graphics;
             graphics = pbWindow.CreateGraphics();
+            Bitmap map = new Bitmap(100, 100);
+            graph = System.Drawing.Graphics.FromImage(map);
             
             setup();
             double[] point = new double[3] { 1, 2, 0 };
