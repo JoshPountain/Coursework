@@ -37,8 +37,9 @@ namespace Coursework
             double[] point = new double[3] { 1, 2, 0 };
             int[] screen = new int[2];
             int[] centre = c.DrawObject(point, 0, screen);*/
-            double[] point = new double[3] { 1, 1, 0 };
-            c.setRotation(0, 0);
+            double[] point = new double[3] { 1, -1, 1 };
+            //c.setRotation(0, 0);
+            setup();
             c.getPerspective(point);
             
         }
@@ -59,6 +60,7 @@ namespace Coursework
             
             //double[] yes = c.ReturnAngle(point);
             Console.WriteLine("DOING NOW");
+            c.setRotation(45, 45);
             c.checkDebug();
             /*c.setRotation(-30, 45);
             c.setRotation(30, 45);

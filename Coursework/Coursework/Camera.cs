@@ -250,7 +250,7 @@ namespace Coursework
             int[] test = new int[2] { 10, 10 };
             angles = test;
 
-            coordinates[0] = screen[0]/2 + Convert.ToInt32(angles[0] / 30);
+            coordinates[0] = screen[0]/2 + Convert.ToInt32(angles[1] / 30);
             coordinates[1] = screen[1]/2 - Convert.ToInt32(angles[1] / 60);
 
             return coordinates;
@@ -269,14 +269,14 @@ namespace Coursework
             double[] dif = new double[3];
             foreach(int i in Enumerable.Range(0, 3))
             {
-                dif[i] = Math.Abs(pos[i] - location[i]);
+                dif[i] = pos[i] - location[i];
 
             }
             //facing 0, 1, 0 should be [0, 0] to maintain consistency with camera rotation angles for easy comparison.
             //comparisons to get the angle within a 90 degree range then trig
 
             //x,y comparison
-            if (dif[0] > 0 && dif[1] > 0)
+            if (dif[0] > 0 & dif[1] > 0)
             {
                 //{+, +} quadrant
                 //+0 modifier
@@ -290,22 +290,127 @@ namespace Coursework
                     dif[1] += 0.001;
                 }
 
-                angles[0] = Math.Atan((dif[0] / dif[1]) * (180 / Math.PI));
+                angles[1] = Math.Atan((Math.Abs(dif[0]) / Math.Abs(dif[1]))) * (180 / Math.PI);
                 
-            }else if(dif[0] < 0 && dif[1] > 0)
+            }else if(dif[0] > 0 & dif[1] < 0)
             {
                 //{-, +} quadrant
                 //+90 modifier
-            }else if(dif[0] > 0 && dif[1] < 0)
+                if (dif[0] == 0)
+                {
+                    dif[0] += 0.001;
+                }
+                if (dif[1] == 0)
+                {
+                    dif[1] += 0.001;
+                }
+
+                angles[1] = Math.Atan((Math.Abs(dif[1]) / Math.Abs(dif[0]))) * (180 / Math.PI);
+                angles[1] += 90;
+            }
+            else if(dif[0] < 0 & dif[1] > 0)
             {
                 //{+, -} quadrant
                 //+180 modifier
-            }else if(dif[0] < 0 && dif[1] < 0)
+                if (dif[0] == 0)
+                {
+                    dif[0] += 0.001;
+                }
+                if (dif[1] == 0)
+                {
+                    dif[1] += 0.001;
+                }
+
+                angles[1] = Math.Atan((Math.Abs(dif[0]) / Math.Abs(dif[1]))) * (180 / Math.PI);
+                angles[1] += 180;
+            }
+            else if(dif[0] < 0 & dif[1] < 0)
             {
                 //{-, -} quadrant
                 //+270 modifier
+                if (dif[0] == 0)
+                {
+                    dif[0] += 0.001;
+                }
+                if (dif[1] == 0)
+                {
+                    dif[1] += 0.001;
+                }
+
+                angles[1] = Math.Atan((Math.Abs(dif[1]) / Math.Abs(dif[0]))) * (180 / Math.PI);
+                angles[1] += 270;
             }
 
+            //y, z
+
+            if (dif[2] > 0 & dif[1] > 0)
+            {
+                //{+, +} quadrant
+                //+0 modifier
+                //tan(theta) = y/x
+                if (dif[2] == 0)
+                {
+                    dif[2] += 0.001;
+                }
+                if (dif[1] == 0)
+                {
+                    dif[1] += 0.001;
+                }
+
+                angles[1] = Math.Atan((Math.Abs(dif[2]) / Math.Abs(dif[1]))) * (180 / Math.PI);
+
+            }
+            else if (dif[2] < 0 & dif[1] > 0)
+            {
+                //{-, +} quadrant
+                //+90 modifier
+                if (dif[2] == 0)
+                {
+                    dif[2] += 0.001;
+                }
+                if (dif[1] == 0)
+                {
+                    dif[1] += 0.001;
+                }
+
+                angles[1] = Math.Atan((Math.Abs(dif[1]) / Math.Abs(dif[2]))) * (180 / Math.PI);
+                angles[1] -= 90;
+            }
+            else if (dif[2] > 0 & dif[1] < 0)
+            {
+                //{+, -} quadrant
+                //+180 modifier
+                if (dif[2] == 0)
+                {
+                    dif[2] += 0.001;
+                }
+                if (dif[1] == 0)
+                {
+                    dif[1] += 0.001;
+                }
+
+                angles[1] = Math.Atan((Math.Abs(dif[2]) / Math.Abs(dif[1]))) * (180 / Math.PI);
+                angles[1] -= 90;
+            }
+            else if (dif[2] < 0 & dif[1] < 0)
+            {
+                //{-, -} quadrant
+                //+270 modifier
+                if (dif[2] == 0)
+                {
+                    dif[2] += 0.001;
+                }
+                if (dif[1] == 0)
+                {
+                    dif[1] += 0.001;
+                }
+
+                angles[1] = Math.Atan((Math.Abs(dif[1]) / Math.Abs(dif[2]))) * (180 / Math.PI);
+                angles[1] += 180;
+            }
+
+
+            //Now change the angles to find a position on the screen
 
 
             return point;
@@ -381,7 +486,7 @@ namespace Coursework
 
             Av *= 180 / Math.PI;
 
-            angles[0] = Atheta;
+            angles[1] = Atheta;
             angles[1] = Av;
             return angles;
         }
