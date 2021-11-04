@@ -28,7 +28,7 @@ namespace Coursework
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-            System.Drawing.Graphics graphics;
+            /*System.Drawing.Graphics graphics;
             graphics = pbWindow.CreateGraphics();
             Bitmap map = new Bitmap(100, 100);
             graph = System.Drawing.Graphics.FromImage(map);
@@ -36,7 +36,10 @@ namespace Coursework
             setup();
             double[] point = new double[3] { 1, 2, 0 };
             int[] screen = new int[2];
-            int[] centre = c.DrawObject(point, 0, screen);
+            int[] centre = c.DrawObject(point, 0, screen);*/
+            double[] point = new double[3] { 1, 1, 0 };
+            c.setRotation(0, 0);
+            c.getPerspective(point);
             
         }
 
@@ -54,7 +57,7 @@ namespace Coursework
             
             
             
-            double[] yes = c.ReturnAngle(point);
+            //double[] yes = c.ReturnAngle(point);
             Console.WriteLine("DOING NOW");
             c.checkDebug();
             /*c.setRotation(-30, 45);

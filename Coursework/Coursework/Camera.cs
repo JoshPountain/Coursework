@@ -21,7 +21,7 @@ namespace Coursework
             checkDebug();
         }
 
-        public double[] location { get; set; } = new double[3] { 1, 0, 0 };
+        public double[] location { get; set; } = new double[3] { 0, 0, 0 };
         public double[] facing { get; set;} = new double[3] { 0, 0, 0 };
         public double[] rotation { get; set; } = new double[2];
         double[] mleft = new double[3], mright = new double[3], mback = new double[3], mforward = new double[3];
@@ -259,15 +259,51 @@ namespace Coursework
 
         public double[] getPerspective(double[] pos)
         {
+            //gets angles of a point relative to the current cam position
             double[] point = new double[3];
             /*double[] rotationStore = rotation;
             setRotation(pos[0], pos[1]);
             point = facing;
             setRotation(rotationStore[0], rotationStore[1]);*/
+            double[] angles = new double[2] { 0, 0 };
             double[] dif = new double[3];
             foreach(int i in Enumerable.Range(0, 3))
             {
-                dif[i] = Math.Abs(location[i] - pos[0]);
+                dif[i] = Math.Abs(pos[i] - location[i]);
+
+            }
+            //facing 0, 1, 0 should be [0, 0] to maintain consistency with camera rotation angles for easy comparison.
+            //comparisons to get the angle within a 90 degree range then trig
+
+            //x,y comparison
+            if (dif[0] > 0 && dif[1] > 0)
+            {
+                //{+, +} quadrant
+                //+0 modifier
+                //tan(theta) = y/x
+                if (dif[0] == 0)
+                {
+                    dif[0] += 0.001;
+                }
+                if (dif[1] == 0)
+                {
+                    dif[1] += 0.001;
+                }
+
+                angles[0] = Math.Atan((dif[0] / dif[1]) * (180 / Math.PI));
+                
+            }else if(dif[0] < 0 && dif[1] > 0)
+            {
+                //{-, +} quadrant
+                //+90 modifier
+            }else if(dif[0] > 0 && dif[1] < 0)
+            {
+                //{+, -} quadrant
+                //+180 modifier
+            }else if(dif[0] < 0 && dif[1] < 0)
+            {
+                //{-, -} quadrant
+                //+270 modifier
             }
 
 

@@ -16,5 +16,10 @@ namespace Graphics
         {
             InitializeComponent();
         }
+
+        private void NewObject_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

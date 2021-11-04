@@ -1,0 +1,13 @@
+C:\Users\josh1\Desktop\Coursework(git)\Coursework\Coursework\obj\Debug\Coursework.csprojAssemblyReference.cache
+C:\Users\josh1\Desktop\Coursework(git)\Coursework\Coursework\obj\Debug\Coursework.Form1.resources
+C:\Users\josh1\Desktop\Coursework(git)\Coursework\Coursework\obj\Debug\Graphics.NewObject.resources
+C:\Users\josh1\Desktop\Coursework(git)\Coursework\Coursework\obj\Debug\Graphics.Properties.Resources.resources
+C:\Users\josh1\Desktop\Coursework(git)\Coursework\Coursework\obj\Debug\Coursework.csproj.GenerateResource.cache
+C:\Users\josh1\Desktop\Coursework(git)\Coursework\Coursework\obj\Debug\Coursework.csproj.CoreCompileInputs.cache
+C:\Users\josh1\Desktop\Coursework(git)\Coursework\Coursework\obj\Debug\Graphics.exe
+C:\Users\josh1\Desktop\Coursework(git)\Coursework\Coursework\obj\Debug\Graphics.pdb
+C:\Users\josh1\Desktop\Coursework(git)\Coursework\Coursework\bin\Debug\Objects.mdf
+C:\Users\josh1\Desktop\Coursework(git)\Coursework\Coursework\bin\Debug\Objects_log.ldf
+C:\Users\josh1\Desktop\Coursework(git)\Coursework\Coursework\bin\Debug\Graphics.exe.config
+C:\Users\josh1\Desktop\Coursework(git)\Coursework\Coursework\bin\Debug\Graphics.exe
+C:\Users\josh1\Desktop\Coursework(git)\Coursework\Coursework\bin\Debug\Graphics.pdb
