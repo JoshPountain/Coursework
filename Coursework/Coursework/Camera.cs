@@ -345,9 +345,6 @@ namespace Coursework
 
             if (dif[2] > 0 & dif[1] > 0)
             {
-                //{+, +} quadrant
-                //+0 modifier
-                //tan(theta) = y/x
                 if (dif[2] == 0)
                 {
                     dif[2] += 0.001;
@@ -362,8 +359,6 @@ namespace Coursework
             }
             else if (dif[2] < 0 & dif[1] > 0)
             {
-                //{-, +} quadrant
-                //+90 modifier
                 if (dif[2] == 0)
                 {
                     dif[2] += 0.001;
@@ -378,8 +373,6 @@ namespace Coursework
             }
             else if (dif[2] > 0 & dif[1] < 0)
             {
-                //{+, -} quadrant
-                //+180 modifier
                 if (dif[2] == 0)
                 {
                     dif[2] += 0.001;
@@ -394,8 +387,6 @@ namespace Coursework
             }
             else if (dif[2] < 0 & dif[1] < 0)
             {
-                //{-, -} quadrant
-                //+270 modifier
                 if (dif[2] == 0)
                 {
                     dif[2] += 0.001;
@@ -408,12 +399,8 @@ namespace Coursework
                 angles[1] = Math.Atan((Math.Abs(dif[1]) / Math.Abs(dif[2]))) * (180 / Math.PI);
                 angles[1] += 180;
             }
-
-
-            //Now change the angles to find a position on the screen
-
-
-            return point;
+            
+            return angles;
         }
 
         public double getDist(double[] position)
@@ -423,73 +410,7 @@ namespace Coursework
             return dist;
         }
 
-        public double[] ReturnAngle(double[] point)
-        {
-            //gets the frame the camera is 'looking at'
-            double[,] frame = getPoint(30);
-            double cx = location[0];
-            double cy = location[1];
-            double cz = location[2];
-            double[] angles = new double[2];
-            //plot lines from edge of screen, check if point is 'in bounds'
-            //frane[4,3]
-            //0 : top, 1 : bottom, 2: left, 3 : right
-
-            double t;
-
-            
-
-            //find dist from cam pos to point
-            //Pythagoras to find distances
-            double xDist = point[0] - cx;
-            double yDist = point[1] - cy;
-            double zDist = point[1] - cz;
-            double Dist = Math.Sqrt(Math.Pow(xDist, 2) + Math.Pow(yDist, 2) + Math.Pow(zDist, 2));
-            switch (Dist)
-            {
-                case 0:
-                    //no div by 0 error
-                    t = 0.1;
-                    break;
-                default:
-                    t = Math.Abs(Dist);
-                    break;
-            }
-
-            //error if (yDist / t) == 0
-            double Atheta = Math.Asin(yDist / t);
-            switch (Atheta)
-            {
-                case 0:
-                    Atheta = 0;
-                    break;
-                default:
-                    Atheta = Math.Abs(Atheta);
-
-                    break;
-            }
-            Atheta *= 180 / Math.PI;
-            Atheta = 90 - Atheta;
-
-            double Av = Math.Atan(zDist / t);
-            switch (Av)
-            {
-                case 0:
-                    //no div by 0 error
-                    Av = 0;
-                    break;
-                default:
-                    Av = Math.Abs(Av);
-
-                    break;
-            }
-
-            Av *= 180 / Math.PI;
-
-            angles[1] = Atheta;
-            angles[1] = Av;
-            return angles;
-        }
+        
 
         public bool ValidatePoint(double[] point)
         {
@@ -835,7 +756,7 @@ namespace Coursework
             setRotation(rh + rotation[0], rv + rotation[1]);
         }
 
-        public void createFrame(int fov)
+        public void createFrame(double[] pos)
         {
             //gradients
             double x;
@@ -844,10 +765,15 @@ namespace Coursework
             double xDiff;
             double yDiff;
             double zDiff;
+            double[] angles = getPerspective(pos);
 
-            //plotting line from camera position to the point looking at;
-
-
+            double[] angleDif = new double[3];
+            foreach (int i in Enumerable.Range(0, 3))
+            {
+                angleDif[i] = rotation[i] - angles[i];
+            }
+            x = fov[0] / angleDif[0];
+            y = fov[1] / angleDif[1];
         }
 
         public void getDirection()
