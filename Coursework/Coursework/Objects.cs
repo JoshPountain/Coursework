@@ -8,12 +8,13 @@ namespace Coursework
 {
     class Objects
     {
-        public Objects(double imass, int[] ilocation, double iradius)
+        public Objects(double imass, int[] ilocation, double iradius, int id)
         {
             mass = imass;
             location = ilocation;
             radius = iradius;
         }
+        public int id;
         public double mass { get; set; }
         public int[] location { get; set; }
         public double radius { get; set; }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +16,8 @@ namespace Coursework
     {
         System.Drawing.Graphics graph;
         Camera c = new Camera(100);
+        Objects[] obj = new Objects[100];
+        int objInRender = 0;
         public Form1()
         {
             InitializeComponent();
@@ -37,12 +39,32 @@ namespace Coursework
             double[] point = new double[3] { 1, 2, 0 };
             int[] screen = new int[2];
             int[] centre = c.DrawObject(point, 0, screen);*/
-            double[] point = new double[3] { 1, -1, 1 };
+            int[] point = new int[3] { 1, -1, 1 };
             //c.setRotation(0, 0);
             setup();
-            c.getPerspective(point);
+            //c.getPerspective(point);
+            createObject(point, 10, 1);
             
         }
+
+        public void createObject(int[]pos, double mass, double radius)
+        {
+            //File.Create("C:\\Users\\josh1\\Desktop\\Coursework(git)\\Coursework\\Coursework\\bin\\Debug\\ObjectLog.txt");
+            // string file = File.ReadAllText("C:\\Users\\josh1\\Desktop\\Coursework(git)\\Coursework\\Coursework\\bin\\Debug\\ObjectLog.txt");
+            string file = File.ReadAllText("ObjectLog.txt");
+            int id = Convert.ToInt32(file);
+            obj[objInRender] = new Objects(mass, pos, radius, id);
+        }
+
+        public void createObject(int[] pos, double mass, double radius, double[] velocity)
+        {
+            string file = File.ReadAllText("ObjectLog.txt");
+            int id = Convert.ToInt32(file);
+            obj[objInRender] = new Objects(mass, pos, radius, 0);
+            obj[objInRender].forceVector = velocity;
+        }
+
+
 
         private void draw()
         {

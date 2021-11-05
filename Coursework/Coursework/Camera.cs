@@ -236,7 +236,7 @@ namespace Coursework
             
             double dist = getDist(pos);
             //Would use id to get radius from database, but not set up
-            double[] objAngles = ReturnAngle(pos);
+            double[] objAngles = getPerspective(pos);
             int x, y;
             int[] coordinates = new int[2];
             int[] angles = new int[2];
@@ -409,9 +409,7 @@ namespace Coursework
             dist = Math.Sqrt((Math.Pow(position[0] - location[0], 2) + (Math.Pow(position[1] - location[1], 2)) + (Math.Pow(position[2] - location[2], 2))));
             return dist;
         }
-
         
-
         public bool ValidatePoint(double[] point)
         {
             //Sees if a point is in view of the camera
