@@ -16,9 +16,9 @@ namespace Coursework
     {
         public Camera(int renderDist)
         {
-            setRotation(0, 0);
+            //setRotation(0, 0);
             getPoint(30);
-            checkDebug();
+            //checkDebug();
         }
 
         public double[] location { get; set; } = new double[3] { 0, 0, 0 };
@@ -29,6 +29,7 @@ namespace Coursework
         //Height, width (fov)
         public double[] fov { get; set; } = new double[2] { 30, 30 };
         
+       
 
         public void setRotation(double Atheta, double Av)
         {
@@ -52,7 +53,7 @@ namespace Coursework
             }
 
 
-            Console.WriteLine("ANGLE: " + Atheta.ToString());
+            ////Console.WriteLine("ANGLE: " + Atheta.ToString());
             //trig angles to find new facing point
             rotation[0] = 0;
             rotation[1] = 0;
@@ -100,8 +101,8 @@ namespace Coursework
                 z = Math.Sin(Math.Abs(Av) * CONVERT);
             }
             
-            //Console.WriteLine(Av.ToString());
-            //Console.WriteLine("Sign: " + (Math.Abs(Av) / Av).ToString());
+            ////Console.WriteLine(Av.ToString());
+            ////Console.WriteLine("Sign: " + (Math.Abs(Av) / Av).ToString());
             if (Av == 90)
             {
                 //Vertical rotation
@@ -112,52 +113,52 @@ namespace Coursework
                 proportion = Math.Cos(Av * CONVERT);
             }
             
-            Console.WriteLine(proportion);
-            Console.WriteLine("Proportion: " + proportion.ToString());
+            //Console.WriteLine(proportion);
+            //Console.WriteLine("Proportion: " + proportion.ToString());
             sin = (Math.Sin((modifier - Atheta) * CONVERT)) * proportion;
             cos = (Math.Cos((modifier - Atheta) * CONVERT)) * proportion;
             //cos = Math.Cos((modifier - 90) * CONVERT) * proportion;
             
             cos = Math.Sin((Atheta - (modifier - 90)) * CONVERT) * proportion;
             //cos = Math.Sin(90 * (Math.PI / 180));
-            //Console.WriteLine("Cos: " + cos.ToString());
+            ////Console.WriteLine("Cos: " + cos.ToString());
             /*if (cos == 0)
             {
-                Console.WriteLine("Huh");
+                //Console.WriteLine("Huh");
             }*/
             switch (modifier)
             {
                 case 90:
                     y += sin;
                     //x += cos;
-                    Console.WriteLine("Check: " + (Math.Sin(90 * CONVERT)).ToString());
-                    Console.WriteLine("Atheta: " + Atheta.ToString());
+                    //Console.WriteLine("Check: " + (Math.Sin(90 * CONVERT)).ToString());
+                    //Console.WriteLine("Atheta: " + Atheta.ToString());
                     //x += Math.Sin(Atheta * CONVERT);
                     x += cos;
-                    Console.WriteLine(modifier.ToString());
+                    //Console.WriteLine(modifier.ToString());
                     break;
                 case 180:
                     x += sin;
                     y -= cos;
-                    Console.WriteLine(modifier.ToString());
+                    //Console.WriteLine(modifier.ToString());
                     break;
                 case 270:
                     y -= sin;
                     x -= cos;
-                    Console.WriteLine(modifier.ToString());
+                    //Console.WriteLine(modifier.ToString());
                     break;
                 case 360:
                     x -= sin;
                     y += cos;
-                    Console.WriteLine(modifier.ToString());
+                    //Console.WriteLine(modifier.ToString());
                     break;
             }
-            Console.WriteLine("x: " + x.ToString());
-            Console.WriteLine("y: " + y.ToString());
-            Console.WriteLine("z: " + z.ToString());
-            facing[0] += location[0] + x;
-            facing[1] += location[1] + y;
-            facing[2] += location[2] + z;
+            //Console.WriteLine("x: " + x.ToString());
+            //Console.WriteLine("y: " + y.ToString());
+            //Console.WriteLine("z: " + z.ToString());
+            facing[0] = location[0] + x;
+            facing[1] = location[1] + y;
+            facing[2] = location[2] + z;
             //rotation[0] = Atheta;
             //rotation[1] = Av;
         }
@@ -260,7 +261,6 @@ namespace Coursework
         public double[] getPerspective(double[] pos)
         {
             //gets angles of a point relative to the current cam position
-            double[] point = new double[3];
             /*double[] rotationStore = rotation;
             setRotation(pos[0], pos[1]);
             point = facing;
@@ -276,7 +276,7 @@ namespace Coursework
             //comparisons to get the angle within a 90 degree range then trig
 
             //x,y comparison
-            if (dif[0] > 0 & dif[1] > 0)
+            if (dif[0] >= 0 & dif[1] >= 0)
             {
                 //{+, +} quadrant
                 //+0 modifier
@@ -290,9 +290,9 @@ namespace Coursework
                     dif[1] += 0.001;
                 }
 
-                angles[1] = Math.Atan((Math.Abs(dif[0]) / Math.Abs(dif[1]))) * (180 / Math.PI);
+                angles[0] = Math.Atan((Math.Abs(dif[0]) / Math.Abs(dif[1]))) * (180 / Math.PI);
                 
-            }else if(dif[0] > 0 & dif[1] < 0)
+            }else if(dif[0] >= 0 & dif[1] <= 0)
             {
                 //{-, +} quadrant
                 //+90 modifier
@@ -305,10 +305,10 @@ namespace Coursework
                     dif[1] += 0.001;
                 }
 
-                angles[1] = Math.Atan((Math.Abs(dif[1]) / Math.Abs(dif[0]))) * (180 / Math.PI);
-                angles[1] += 90;
+                angles[0] = Math.Atan((Math.Abs(dif[1]) / Math.Abs(dif[0]))) * (180 / Math.PI);
+                angles[0] += 90;
             }
-            else if(dif[0] < 0 & dif[1] > 0)
+            else if(dif[0] <= 0 & dif[1] >= 0)
             {
                 //{+, -} quadrant
                 //+180 modifier
@@ -321,10 +321,10 @@ namespace Coursework
                     dif[1] += 0.001;
                 }
 
-                angles[1] = Math.Atan((Math.Abs(dif[0]) / Math.Abs(dif[1]))) * (180 / Math.PI);
-                angles[1] += 180;
+                angles[0] = Math.Atan((Math.Abs(dif[0]) / Math.Abs(dif[1]))) * (180 / Math.PI);
+                angles[0] += 180;
             }
-            else if(dif[0] < 0 & dif[1] < 0)
+            else if(dif[0] <= 0 & dif[1] <= 0)
             {
                 //{-, -} quadrant
                 //+270 modifier
@@ -337,13 +337,13 @@ namespace Coursework
                     dif[1] += 0.001;
                 }
 
-                angles[1] = Math.Atan((Math.Abs(dif[1]) / Math.Abs(dif[0]))) * (180 / Math.PI);
-                angles[1] += 270;
+                angles[0] = Math.Atan((Math.Abs(dif[1]) / Math.Abs(dif[0]))) * (180 / Math.PI);
+                angles[0] += 270;
             }
 
             //y, z
 
-            if (dif[2] > 0 & dif[1] > 0)
+            if (dif[2] >= 0 & dif[1] >= 0)
             {
                 if (dif[2] == 0)
                 {
@@ -357,7 +357,7 @@ namespace Coursework
                 angles[1] = Math.Atan((Math.Abs(dif[2]) / Math.Abs(dif[1]))) * (180 / Math.PI);
 
             }
-            else if (dif[2] < 0 & dif[1] > 0)
+            else if (dif[2] <= 0 & dif[1] >= 0)
             {
                 if (dif[2] == 0)
                 {
@@ -371,7 +371,7 @@ namespace Coursework
                 angles[1] = Math.Atan((Math.Abs(dif[1]) / Math.Abs(dif[2]))) * (180 / Math.PI);
                 angles[1] -= 90;
             }
-            else if (dif[2] > 0 & dif[1] < 0)
+            else if (dif[2] >= 0 & dif[1] <= 0)
             {
                 if (dif[2] == 0)
                 {
@@ -385,7 +385,7 @@ namespace Coursework
                 angles[1] = Math.Atan((Math.Abs(dif[2]) / Math.Abs(dif[1]))) * (180 / Math.PI);
                 angles[1] -= 90;
             }
-            else if (dif[2] < 0 & dif[1] < 0)
+            else if (dif[2] <= 0 & dif[1] <= 0)
             {
                 if (dif[2] == 0)
                 {
@@ -419,9 +419,9 @@ namespace Coursework
             double cx = location[0];
             double cy = location[1];
             double cz = location[2];
-            //plot lines from edge of screen, check if point is 'in bounds'
-            //frane[4,3]
-            //0 : top, 1 : bottom, 2: left, 3 : right
+            //plot lines from edge of screen, check if point is 'in bounds'(in frame?)
+            //frame[4,3]
+            //0 : top, 1 : bottom, 2: left, 3 : right, 4 (each loop)
 
             foreach(int i in Enumerable.Range(0, 4))
             {
@@ -537,9 +537,7 @@ namespace Coursework
         public void checkDebug()
         {
             //Outputs var values
-            Console.WriteLine("Location:" + location[0]);
-            Console.WriteLine(location[1]);
-            Console.WriteLine(location[2]);
+            
             foreach(int i in Enumerable.Range(0, 3))
             {
                 Console.WriteLine("Location:" + i.ToString()+ " " + location[i].ToString());
@@ -613,7 +611,7 @@ namespace Coursework
                 }
 
 
-                Console.WriteLine("ANGLE: " + Atheta.ToString());
+                //Console.WriteLine("ANGLE: " + Atheta.ToString());
                 //trig angles to find new facing point
                 //rotation[0] = 0;
                 //rotation[1] = 0;
@@ -661,8 +659,8 @@ namespace Coursework
                     z = Math.Sin(Math.Abs(Av) * CONVERT);
                 }
 
-                //Console.WriteLine(Av.ToString());
-                //Console.WriteLine("Sign: " + (Math.Abs(Av) / Av).ToString());
+                ////Console.WriteLine(Av.ToString());
+                ////Console.WriteLine("Sign: " + (Math.Abs(Av) / Av).ToString());
                 if (Av == 90)
                 {
                     //Vertical rotation
@@ -673,44 +671,44 @@ namespace Coursework
                     proportion = Math.Cos(Av * CONVERT);
                 }
 
-                Console.WriteLine(proportion);
-                Console.WriteLine("Proportion: " + proportion.ToString());
+                //Console.WriteLine(proportion);
+                //Console.WriteLine("Proportion: " + proportion.ToString());
                 sin = (Math.Sin((modifier - Atheta) * CONVERT)) * proportion;
                 cos = (Math.Cos((modifier - Atheta) * CONVERT)) * proportion;
                 //cos = Math.Cos((modifier - 90) * CONVERT) * proportion;
 
                 cos = Math.Sin((Atheta - (modifier - 90)) * CONVERT) * proportion;
                 //cos = Math.Sin(90 * (Math.PI / 180));
-                //Console.WriteLine("Cos: " + cos.ToString());
+                ////Console.WriteLine("Cos: " + cos.ToString());
                 /*if (cos == 0)
                 {
-                    Console.WriteLine("Huh");
+                    //Console.WriteLine("Huh");
                 }*/
                 switch (modifier)
                 {
                     case 90:
                         y += sin;
                         //x += cos;
-                        Console.WriteLine("Check: " + (Math.Sin(90 * CONVERT)).ToString());
-                        Console.WriteLine("Atheta: " + Atheta.ToString());
+                        //Console.WriteLine("Check: " + (Math.Sin(90 * CONVERT)).ToString());
+                        //Console.WriteLine("Atheta: " + Atheta.ToString());
                         //x += Math.Sin(Atheta * CONVERT);
                         x += cos;
-                        Console.WriteLine(modifier.ToString());
+                        //Console.WriteLine(modifier.ToString());
                         break;
                     case 180:
                         x += sin;
                         y -= cos;
-                        Console.WriteLine(modifier.ToString());
+                        //Console.WriteLine(modifier.ToString());
                         break;
                     case 270:
                         y -= sin;
                         x -= cos;
-                        Console.WriteLine(modifier.ToString());
+                        //Console.WriteLine(modifier.ToString());
                         break;
                     case 360:
                         x -= sin;
                         y += cos;
-                        Console.WriteLine(modifier.ToString());
+                        //Console.WriteLine(modifier.ToString());
                         break;
                 }
                 points[i, 0] = x;
@@ -719,9 +717,9 @@ namespace Coursework
                 
             }
             //End loop *****************************************************************************************
-            /*Console.WriteLine("x: " + x.ToString());
-            Console.WriteLine("y: " + y.ToString());
-            Console.WriteLine("z: " + z.ToString());*/
+            /*//Console.WriteLine("x: " + x.ToString());
+            //Console.WriteLine("y: " + y.ToString());
+            //Console.WriteLine("z: " + z.ToString());*/
 
             /*facing[0] += location[0] + x;
             facing[1] += location[1] + y;

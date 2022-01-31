@@ -1,0 +1,22 @@
+Find where frame angles are generated
+seems to be in validate point 
+frame is not globally generated, instaed each object in render is checked if it is in frame.
+May be more efficient to store the angles the object is from the cam angles in the class and have objects that are within the 'seen' angles show on screen.
+Are we doing this properly, or just simulating having it all seen?
+Draw some axis in like adnaz had to test?
+How to draw objects?
+
+to do:
+-What does validate points do?(Maybe check if seeing?)
+-What does getPerspective do?
+-Make draw object do something(can be simple circle for planets, take an id of some kind, colour differentiation for now)
+-Make create Framework
+
+Assuming set rotation working
+
+Testing
+-rotate
+-detDist
+-GetDirection
+
+

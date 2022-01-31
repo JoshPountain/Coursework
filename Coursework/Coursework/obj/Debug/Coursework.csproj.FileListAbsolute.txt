@@ -16,7 +16,6 @@ C:\Users\Josh\Desktop\Coursework(git)\Coursework\Coursework\bin\Debug\Objects_lo
 C:\Users\Josh\Desktop\Coursework(git)\Coursework\Coursework\bin\Debug\Graphics.exe.config
 C:\Users\Josh\Desktop\Coursework(git)\Coursework\Coursework\bin\Debug\Graphics.exe
 C:\Users\Josh\Desktop\Coursework(git)\Coursework\Coursework\bin\Debug\Graphics.pdb
-C:\Users\Josh\Desktop\Coursework(git)\Coursework\Coursework\obj\Debug\Coursework.csprojAssemblyReference.cache
 C:\Users\Josh\Desktop\Coursework(git)\Coursework\Coursework\obj\Debug\Coursework.Form1.resources
 C:\Users\Josh\Desktop\Coursework(git)\Coursework\Coursework\obj\Debug\Graphics.NewObject.resources
 C:\Users\Josh\Desktop\Coursework(git)\Coursework\Coursework\obj\Debug\Graphics.Properties.Resources.resources

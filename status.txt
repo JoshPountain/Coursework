@@ -1,0 +1,35 @@
+checkdebug function in camera class is only thing to uotput ot console now.
+create frame seems to be disfunctional
+using watch 2 to fix getPerspective
+
+Test 1 : testing getdirection
+{
+plan : 
+-Get use set rotation to find a point. 
+-Save the angle it should be and the point. 
+-Set rotation back to [0, 0]. 
+-Use get direction with saved point
+-Compare
+
+result:
+-Found flaw in detdirectionwhen rotation set as (180, 90)
+-Only problem with first val?
+-
+
+}
+
+
+SetRotation:
+Gets the coordinates you would be looking at based on rotation. 2 values taken, based on you being the centre of a sphere, tahing the degrees around you are (Atheta)
+and the elevation / how high/low you are looking, then sets the 'rotation' to be the input values and the 'facing' values to be tyhe found coordinates.
+
+GetDirection:
+Works as a sort of reverse to Set rotation, gets point and finds the angle away from [0, 0] rotation.
+
+
+getPerspective:
+Small innaccuracies around multiples of 90 because of not handling 0's as input with trig functions.
+******not making the first angle right********
+
+Working subroutines in camera:
+-setRotation

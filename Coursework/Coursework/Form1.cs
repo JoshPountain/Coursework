@@ -41,7 +41,11 @@ namespace Coursework
             int[] centre = c.DrawObject(point, 0, screen);*/
             int[] point = new int[3] { 1, -1, 1 };
             //c.setRotation(0, 0);
-            setup();
+
+            //Not doing setup when testing
+            //setup();
+            testing();
+
             //c.getPerspective(point);
             createObject(point, 10, 1);
             
@@ -71,32 +75,40 @@ namespace Coursework
 
         }
 
+        private void testing()
+        {
+            double[] point, Rightrotation, test;
+            
+            Console.WriteLine("************************Rotation set 10, 10");
+            
+            c.setRotation(180, -90);
+            point = c.facing;
+            Rightrotation = c.rotation;
+            c.checkDebug();
+            //Mixup in output
+            test = c.getPerspective(point);
+            if (test == Rightrotation)
+            {
+                Console.WriteLine("Success");
+            }
+            else
+            {
+                Console.WriteLine("failure");
+            }
+
+        }
+
         private void setup()
         {
             //trig right angle from camera to centre will give furthest side point cam can see
             //need formula for working out which way the camera is looking.
             //Have point the camera is looking at!!!
-
-            
-            
             
             //double[] yes = c.ReturnAngle(point);
             Console.WriteLine("DOING NOW");
             c.setRotation(45, 45);
             c.checkDebug();
-            /*c.setRotation(-30, 45);
-            c.setRotation(30, 45);
-            c.setRotation(45, 30);
-            c.setRotation(45, -30);*/
-            //test at points where there should be shared coordinates
-            //c.setRotation(0, 0);
-            //c.getPoint(30);
-            //double[] point = new double[3] { 0, 0, 0 };
-            //c.ValidatePoint(point);
-            //c.checkDebug();
-            //c.checkDebug();
-            //c.checkDebug();
-
+            
         }
     }
 }
