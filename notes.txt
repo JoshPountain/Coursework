@@ -20,3 +20,11 @@ Testing
 -GetDirection
 
 
+setRotation
+{
+getting y value of facing close but wrong
+}
+
+Can massivly simplify get direction by doing 1 calculation from each axis and somehow combining x and y?
+
+

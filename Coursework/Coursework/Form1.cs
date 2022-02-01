@@ -81,20 +81,13 @@ namespace Coursework
             
             Console.WriteLine("************************Rotation set 10, 10");
             
-            c.setRotation(180, -90);
+            c.setRotation(171, -54);
             point = c.facing;
             Rightrotation = c.rotation;
-            c.checkDebug();
             //Mixup in output
             test = c.getPerspective(point);
-            if (test == Rightrotation)
-            {
-                Console.WriteLine("Success");
-            }
-            else
-            {
-                Console.WriteLine("failure");
-            }
+
+            c.checkDebug();
 
         }
 

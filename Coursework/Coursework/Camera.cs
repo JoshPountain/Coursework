@@ -51,36 +51,30 @@ namespace Coursework
             {
                 Atheta -= 360;
             }
-
-
-            ////Console.WriteLine("ANGLE: " + Atheta.ToString());
             //trig angles to find new facing point
-            rotation[0] = 0;
-            rotation[1] = 0;
-            //facing[0] = 0;
-            //facing[1] = 0;
-            //facing[2] = 0;
-
-            rotation[0] += Atheta;
-            rotation[1] += Av;
+            rotation[0] = Atheta;
+            rotation[1] = Av;
             //Cam position modifiers (Asif top down)
             double x = 0;
             double y = 0;
             double z = 0;
-            //t is for x,y rotation, a is for the 'elevation'
+            //t(theta) is for x,y rotation, a(angle) is for the 'elevation'
             double t = rotation[0];
             double a = rotation[1];
             double modifier = 90;
-            //Trig functions in c# use radeons, the convert value will make the output be in degrees
+            //Trig functions in c# use radeons, the convert value will make the output be in degrees when multiplying the inside of the function
+
             double CONVERT = Math.PI / 180;
             double sin;
             double cos;
             double proportion;
+            //**********************************redundant
             if (t >= 360)
             {
                 t -= 360;
             }
-
+            
+            //Gets the angle of modifier to be within 90 degrees of atheta
             while (true)
             {
                 if (t <= modifier)
@@ -92,75 +86,64 @@ namespace Coursework
                     modifier += 90;
                 }
             }
+
             if (Av != 0)
             {
                 z = (Av / Math.Abs(Av)) * Math.Sin(Math.Abs(Av) * CONVERT);
             }
             else
             {
+                //hypotenuse is 1 so no need to divide
+                //sin(0) = 0, is this needed?
                 z = Math.Sin(Math.Abs(Av) * CONVERT);
             }
-            
-            ////Console.WriteLine(Av.ToString());
-            ////Console.WriteLine("Sign: " + (Math.Abs(Av) / Av).ToString());
-            if (Av == 90)
+
+            if (Math.Abs(Av) == 90)
             {
                 //Vertical rotation
                 proportion = 0;
             }
             else
             {
+                //if you were to draw a line from the center of the circle to the edge with a cirtain angle, then you get the xy
+                //of the edge, if you work out how long across it is with the amount raised then you just have to multiply tat proportion by the xy and it works to get their values.
                 proportion = Math.Cos(Av * CONVERT);
+                //when av is 90 or -90 the cos output shuold be 0, however due to rounding of pi in c# it outputs a very small number, but not 0
             }
             
-            //Console.WriteLine(proportion);
-            //Console.WriteLine("Proportion: " + proportion.ToString());
+            
             sin = (Math.Sin((modifier - Atheta) * CONVERT)) * proportion;
             cos = (Math.Cos((modifier - Atheta) * CONVERT)) * proportion;
             //cos = Math.Cos((modifier - 90) * CONVERT) * proportion;
             
             cos = Math.Sin((Atheta - (modifier - 90)) * CONVERT) * proportion;
             //cos = Math.Sin(90 * (Math.PI / 180));
-            ////Console.WriteLine("Cos: " + cos.ToString());
-            /*if (cos == 0)
-            {
-                //Console.WriteLine("Huh");
-            }*/
+           
             switch (modifier)
             {
                 case 90:
                     y += sin;
                     //x += cos;
-                    //Console.WriteLine("Check: " + (Math.Sin(90 * CONVERT)).ToString());
-                    //Console.WriteLine("Atheta: " + Atheta.ToString());
                     //x += Math.Sin(Atheta * CONVERT);
                     x += cos;
-                    //Console.WriteLine(modifier.ToString());
                     break;
                 case 180:
                     x += sin;
                     y -= cos;
-                    //Console.WriteLine(modifier.ToString());
                     break;
                 case 270:
                     y -= sin;
                     x -= cos;
-                    //Console.WriteLine(modifier.ToString());
                     break;
                 case 360:
                     x -= sin;
                     y += cos;
-                    //Console.WriteLine(modifier.ToString());
                     break;
             }
-            //Console.WriteLine("x: " + x.ToString());
-            //Console.WriteLine("y: " + y.ToString());
-            //Console.WriteLine("z: " + z.ToString());
+            
             facing[0] = location[0] + x;
             facing[1] = location[1] + y;
             facing[2] = location[2] + z;
-            //rotation[0] = Atheta;
-            //rotation[1] = Av;
         }
 
         public void rotate(double Atheta, double Av, double noCol)
@@ -267,6 +250,7 @@ namespace Coursework
             setRotation(rotationStore[0], rotationStore[1]);*/
             double[] angles = new double[2] { 0, 0 };
             double[] dif = new double[3];
+            double distance = getDist(pos);
             foreach(int i in Enumerable.Range(0, 3))
             {
                 dif[i] = pos[i] - location[i];
@@ -292,7 +276,7 @@ namespace Coursework
 
                 angles[0] = Math.Atan((Math.Abs(dif[0]) / Math.Abs(dif[1]))) * (180 / Math.PI);
                 
-            }else if(dif[0] >= 0 & dif[1] <= 0)
+            }else if(dif[0] <= 0 & dif[1] >= 0)
             {
                 //{-, +} quadrant
                 //+90 modifier
@@ -306,9 +290,9 @@ namespace Coursework
                 }
 
                 angles[0] = Math.Atan((Math.Abs(dif[1]) / Math.Abs(dif[0]))) * (180 / Math.PI);
-                angles[0] += 90;
+                angles[0] += 270;
             }
-            else if(dif[0] <= 0 & dif[1] >= 0)
+            else if(dif[0] >= 0 & dif[1] <= 0)
             {
                 //{+, -} quadrant
                 //+180 modifier
@@ -321,8 +305,8 @@ namespace Coursework
                     dif[1] += 0.001;
                 }
 
-                angles[0] = Math.Atan((Math.Abs(dif[0]) / Math.Abs(dif[1]))) * (180 / Math.PI);
-                angles[0] += 180;
+                angles[0] = Math.Atan((Math.Abs(dif[1]) / Math.Abs(dif[0]))) * (180 / Math.PI);
+                angles[0] += 90;
             }
             else if(dif[0] <= 0 & dif[1] <= 0)
             {
@@ -337,14 +321,16 @@ namespace Coursework
                     dif[1] += 0.001;
                 }
 
-                angles[0] = Math.Atan((Math.Abs(dif[1]) / Math.Abs(dif[0]))) * (180 / Math.PI);
-                angles[0] += 270;
+                angles[0] = Math.Atan((Math.Abs(dif[0]) / Math.Abs(dif[1]))) * (180 / Math.PI);
+                angles[0] += 180;
             }
 
             //y, z
 
             if (dif[2] >= 0 & dif[1] >= 0)
             {
+                Console.WriteLine("+/+");
+                //{+/+}
                 if (dif[2] == 0)
                 {
                     dif[2] += 0.001;
@@ -354,11 +340,14 @@ namespace Coursework
                     dif[1] += 0.001;
                 }
 
-                angles[1] = Math.Atan((Math.Abs(dif[2]) / Math.Abs(dif[1]))) * (180 / Math.PI);
+                //needs to be divided by distance away
+                angles[1] = Math.Asin((dif[2] / distance)) * (180 / Math.PI);
 
             }
             else if (dif[2] <= 0 & dif[1] >= 0)
             {
+                //{+/-}
+                Console.WriteLine("+/-");
                 if (dif[2] == 0)
                 {
                     dif[2] += 0.001;
@@ -368,11 +357,12 @@ namespace Coursework
                     dif[1] += 0.001;
                 }
 
-                angles[1] = Math.Atan((Math.Abs(dif[1]) / Math.Abs(dif[2]))) * (180 / Math.PI);
-                angles[1] -= 90;
+                angles[1] = Math.Asin((dif[2] / distance)) * (180 / Math.PI);
             }
             else if (dif[2] >= 0 & dif[1] <= 0)
             {
+                //{-/+}
+                Console.WriteLine("-/+");
                 if (dif[2] == 0)
                 {
                     dif[2] += 0.001;
@@ -382,11 +372,12 @@ namespace Coursework
                     dif[1] += 0.001;
                 }
 
-                angles[1] = Math.Atan((Math.Abs(dif[2]) / Math.Abs(dif[1]))) * (180 / Math.PI);
-                angles[1] -= 90;
+                angles[1] = Math.Asin((dif[2] / distance)) * (180 / Math.PI);
             }
             else if (dif[2] <= 0 & dif[1] <= 0)
             {
+                //{-/-}
+                Console.WriteLine("-/-");
                 if (dif[2] == 0)
                 {
                     dif[2] += 0.001;
@@ -396,8 +387,7 @@ namespace Coursework
                     dif[1] += 0.001;
                 }
 
-                angles[1] = Math.Atan((Math.Abs(dif[1]) / Math.Abs(dif[2]))) * (180 / Math.PI);
-                angles[1] += 180;
+                angles[1] = Math.Asin((dif[2] / distance)) * (180 / Math.PI);
             }
             
             return angles;
